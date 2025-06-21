@@ -14,6 +14,21 @@ export type TUserResponse = {
   permissions: TPermission[];
 };
 
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  user: Omit<TUser, "password">;
+  token: string;
+  refreshToken?: string;
+}
+
+export interface GoogleLoginRequest {
+  token: string;
+}
+
 export interface TRole {
   id: string;
   name: string;

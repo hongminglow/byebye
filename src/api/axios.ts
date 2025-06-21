@@ -21,7 +21,7 @@ export interface TApiError {
   };
 }
 
-export const apiClient = axios.create({
+export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
   headers: {
@@ -30,7 +30,7 @@ export const apiClient = axios.create({
 });
 
 // Request interceptor - Add auth token to all requests
-apiClient.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     const token = cookieStorage.get("token");
     if (token) {
@@ -54,7 +54,7 @@ apiClient.interceptors.request.use(
 );
 
 // Response interceptor - Handle global errors
-apiClient.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   <T>(
     response: AxiosResponse<TApiResponse<T>>
   ): AxiosResponse<TApiResponse<T>> => {
@@ -79,9 +79,17 @@ apiClient.interceptors.response.use(
   }
 );
 
-export type TAxiosReponse = {
-  get<T>(url: string, config?: AxiosRequestConfig): Promise<T>;
-  post<T>(url: string, config?: AxiosRequestConfig): Promise<T>;
-  put<T>(url: string, config?: AxiosRequestConfig): Promise<T>;
-  delete<T>(url: string, config?: AxiosRequestConfig): Promise<T>;
+export const apiClient = {
+  get: <T>(url: string, config?: AxiosRequestConfig): Promise<T> =>
+    axiosInstance.get<T>(url, config).then((response) => response.data),
+  post: <T, D>(
+    url: string,
+    data?: D,
+    config?: AxiosRequestConfig
+  ): Promise<T> =>
+    axiosInstance.post<T>(url, data, config).then((response) => response.data),
+  put: <T, D>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> =>
+    axiosInstance.put<T>(url, data, config).then((response) => response.data),
+  delete: <T>(url: string, config?: AxiosRequestConfig): Promise<T> =>
+    axiosInstance.delete<T>(url, config).then((response) => response.data),
 };

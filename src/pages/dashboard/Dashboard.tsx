@@ -2,6 +2,7 @@ import { usePermissions } from "@/hooks/usePermissions";
 import { PERMISSIONS } from "@/types/auth";
 
 export const Dashboard = () => {
+  //   const user = useUser();
   const { can } = usePermissions();
 
   return (

@@ -1,13 +1,18 @@
 // hooks/useAuth.ts
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-import { authApi } from "@/api/auth/auth";
 import { cookieStorage } from "@/utils/cookies";
 import { toast } from "sonner";
 import { publicRoutes } from "@/types/routes";
 import { TUserResponse } from "@/types/auth";
 import { TApiError } from "@/api/axios";
-import { useAuthStore } from "../store/useAuthStore";
+import { useAuthStore } from "@/store/useAuthStore";
+import {
+  googleLoginMutation,
+  loginMutation,
+  logoutMutation,
+} from "@/services/mutation/auth";
+import { getCurrentUser } from "@/services/query/user";
 
 // Query Keys
 export const authKeys = {
@@ -21,7 +26,7 @@ export const useUser = () => {
   return useQuery<TUserResponse>({
     // ✅ Add types
     queryKey: authKeys.user(),
-    queryFn: authApi.getCurrentUser,
+    queryFn: getCurrentUser,
     enabled: !!cookieStorage.get("token"), // Only fetch if token exists
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: false, // Don't retry on auth errors
@@ -35,7 +40,7 @@ export const useLogin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: authApi.login,
+    mutationFn: loginMutation,
     onSuccess: (data) => {
       // Store token
       cookieStorage.set("token", data.token, {
@@ -67,7 +72,7 @@ export const useGoogleLogin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: authApi.googleLogin,
+    mutationFn: googleLoginMutation,
     onSuccess: (data) => {
       cookieStorage.set("token", data.token, {
         expires: 1,
@@ -92,7 +97,7 @@ export const useLogout = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: authApi.logout,
+    mutationFn: logoutMutation,
     onSuccess: () => {
       // Remove token
       cookieStorage.remove("token");

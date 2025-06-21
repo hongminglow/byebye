@@ -45,9 +45,12 @@ server.post("/api/auth/login", async (req, res) => {
     const { password: _, ...safeUser } = user;
 
     res.json({
-      user: safeUser,
-      token,
       message: "Login successful",
+      success: true,
+      data: {
+        user: safeUser,
+        token,
+      },
     });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
