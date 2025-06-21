@@ -1,0 +1,8 @@
+{
+  "/api/*": "/$1",
+  "/api/auth/login": "/auth/login",
+  "/api/auth/google": "/auth/google",
+  "/api/auth/me": "/users/1",
+  "/api/auth/logout": "/auth/logout",
+  "/api/auth/refresh": "/sessions"
+}
