@@ -1,4 +1,3 @@
-// pages/auth/Login.tsx
 import { useAuthStore } from "@/store/useAuthStore";
 import { InputWithLabel } from "@/components/ui/input/InputWithLabel";
 import { PasswordInput } from "@/components/ui/input/PasswordInput";
@@ -9,6 +8,9 @@ import { Controller } from "react-hook-form";
 import { Button } from "@/components/ui/button/Button";
 import { LogIn } from "lucide-react";
 import { useLoginForm } from "@/hooks/form/useLoginForm";
+import ReCAPTCHA from "react-google-recaptcha";
+import { getGoogleRecaptchaSiteKey } from "@/utils/misc";
+import { useState } from "react";
 
 export const Login = () => {
   return (
@@ -28,6 +30,18 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { form, onSubmit } = useLoginForm();
   const { loginWithGoogle } = useAuthStore();
+  const [showCaptcha, setShowCaptcha] = useState(false);
+
+  const handleLoginClick = async () => {
+    const isValid = await form.trigger();
+
+    if (isValid) setShowCaptcha(true);
+  };
+
+  const handleValidRecaptcha = () => {
+    form.handleSubmit(onSubmit)();
+    setShowCaptcha(false);
+  };
 
   const handleGoogleSuccessCallback = async (
     credentialResponse: CredentialResponse
@@ -43,7 +57,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
+    <form id="login-form">
       <div className="flex flex-col gap-2 px-2 w-full mt-6 items-center justify-center">
         <Controller
           name="email"
@@ -54,7 +68,6 @@ const LoginForm = () => {
               label="Email"
               placeholder="Enter your email"
               error={fieldState.error ? fieldState.error.message : undefined}
-              {...field}
               {...field}
             />
           )}
@@ -74,7 +87,12 @@ const LoginForm = () => {
           )}
         />
 
-        <Button type="submit" variant="ghost" className="text-blue-500 px-5 ">
+        <Button
+          type="button"
+          variant="ghost"
+          className="text-blue-500 px-5 "
+          onClick={handleLoginClick}
+        >
           <LogIn />
           Sign In
         </Button>
@@ -85,7 +103,57 @@ const LoginForm = () => {
             useOneTap={false}
           />
         </div>
+
+        {showCaptcha && (
+          <GoogleRecaptcha
+            handleValidRecaptcha={handleValidRecaptcha}
+            handleClose={() => setShowCaptcha(false)}
+          />
+        )}
       </div>
     </form>
+  );
+};
+
+const GoogleRecaptcha = ({
+  handleValidRecaptcha,
+  handleClose,
+}: {
+  handleValidRecaptcha: () => void;
+  handleClose: () => void;
+}) => {
+  const handleCaptchaChange = (token: string | null) => {
+    if (token) {
+      setTimeout(() => {
+        handleValidRecaptcha();
+      }, 1500);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-md">
+        <h3 className="text-lg font-semibold mb-4">
+          Please verify you're human
+        </h3>
+
+        <ReCAPTCHA
+          sitekey={getGoogleRecaptchaSiteKey()}
+          onChange={handleCaptchaChange}
+          theme="light"
+          size="normal"
+        />
+
+        <div className="flex gap-2 mt-4">
+          <button
+            type="button"
+            onClick={handleClose}
+            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };

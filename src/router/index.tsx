@@ -5,7 +5,7 @@ import { adminRoutes, publicRoutes, userRoutes } from "@/types/routes";
 import { Layout } from "@/components/layout/Layout";
 import { lazy } from "react";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
-import { PERMISSIONS } from "@/types/auth";
+import { PERMISSIONS, TRoleType } from "@/types/auth";
 
 // Lazy loading for all components
 const LoginPage = lazy(() =>
@@ -106,7 +106,7 @@ export const routeConfig: RouteObject[] = [
             path: adminRoutes.REPORT,
             element: (
               <ProtectedRoute
-                roles="admin"
+                roles={TRoleType.ADMIN}
                 permissions={PERMISSIONS.REPORTS_VIEW}
               >
                 <ReportPage />

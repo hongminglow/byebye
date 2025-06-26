@@ -1,6 +1,9 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]): string {
-  return twMerge(clsx(inputs));
-}
+export const getGoogleRecaptchaSiteKey = () => {
+  const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+  if (!siteKey) {
+    throw new Error(
+      "Google reCAPTCHA site key is not defined in environment variables."
+    );
+  }
+  return siteKey;
+};

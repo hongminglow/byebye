@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { theme } from "@/utils/theme";
-import { cn } from "@/utils/misc";
+import { cn } from "@/lib/utils";
 
 export const ThemeToggle = () => {
   const [currentTheme, setCurrentTheme] = useState<"light" | "dark">("light");

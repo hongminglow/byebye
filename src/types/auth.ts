@@ -5,6 +5,11 @@ export type TUser = {
   permissions: TPermission[];
 };
 
+export enum TRoleType {
+  ADMIN = "admin",
+  USER = "user",
+}
+
 export type TUserResponse = {
   id: string;
   email: string;

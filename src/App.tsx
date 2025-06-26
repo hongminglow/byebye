@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryProvider } from "./providers/QueryProvider";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "./components/ui/toast/Sonner";
+import { NuqsAdapter } from "nuqs/adapters/react";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -18,14 +19,16 @@ function App() {
 
   return (
     <QueryProvider>
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-          <Suspense fallback={<LoadingSpinner />}>
-            <RouterProvider router={router} />
-            <Toaster />
-          </Suspense>
-        </ThemeProvider>
-      </GoogleOAuthProvider>
+      <NuqsAdapter>
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+            <Suspense fallback={<LoadingSpinner />}>
+              <RouterProvider router={router} />
+              <Toaster />
+            </Suspense>
+          </ThemeProvider>
+        </GoogleOAuthProvider>
+      </NuqsAdapter>
     </QueryProvider>
   );
 }

@@ -4,9 +4,9 @@ import { Header } from "./Header";
 
 export const Layout = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen grid grid-rows-[auto_1fr_auto] ">
       <Header />
-      <main className="grow flex items-center justify-center">
+      <main>
         <Outlet />
       </main>
       <Footer />
