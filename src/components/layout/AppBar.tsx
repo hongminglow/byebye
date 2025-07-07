@@ -10,7 +10,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import MainLogo from "@/assets/images/main-logo.png";
 
 const Logo = () => (
-  <Link to={publicRoutes.DASHBOARD} className="flex items-center space-x-2">
+  <Link to={publicRoutes.HOME} className="flex items-center space-x-2">
     <img
       src={MainLogo}
       alt="main-logo"

@@ -22,7 +22,7 @@ export const GoogleCallback = () => {
     if (code) {
       handleGoogleCallback(code)
         .then(() => {
-          navigate(publicRoutes.DASHBOARD);
+          navigate(publicRoutes.HOME);
         })
         .catch(() => {
           navigate("/login?error=oauth_failed");

@@ -21,7 +21,7 @@ export const IconInput = ({
   return (
     <div
       className={cn(
-        "border-input bg-[#F0F0F0] flex h-9 w-full min-w-0 rounded-md border  transition-[color,box-shadow] has-[:focus-visible]:border-ring has-[:focus-visible]:ring-ring/50 has-[:focus-visible]:ring-[3px] has-[:disabled]:pointer-events-none has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50",
+        "border-input bg-gray-100 flex h-9 w-full min-w-0 rounded-md border  transition-[color,box-shadow] has-[:focus-visible]:border-ring has-[:focus-visible]:ring-ring/50 has-[:focus-visible]:ring-[3px] has-[:disabled]:pointer-events-none has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50",
         "has-[:invalid]:ring-destructive/20 dark:has-[:invalid]:ring-destructive/40 has-[:invalid]:border-destructive",
         className
       )}

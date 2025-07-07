@@ -49,7 +49,7 @@ const LoginForm = () => {
     if (credentialResponse.credential) {
       try {
         const result = await loginWithGoogle(credentialResponse.credential);
-        if (result) navigate(publicRoutes.DASHBOARD);
+        if (result) navigate(publicRoutes.HOME);
       } catch (error) {
         console.error("Error during Google login:", error);
       }

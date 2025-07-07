@@ -14,6 +14,19 @@ const LoginPage = lazy(() =>
 const HomePage = lazy(() =>
   import("@/pages/home/Home").then((module) => ({ default: module.Home }))
 );
+const ShopPage = lazy(() =>
+  import("@/pages/shop/Shop").then((module) => ({ default: module.Shop }))
+);
+const CheckoutPage = lazy(() =>
+  import("@/pages/payment/Checkout").then((module) => ({
+    default: module.Checkout,
+  }))
+);
+const TransactionResultPage = lazy(() =>
+  import("@/pages/payment/TransactionResult").then((module) => ({
+    default: module.TransactionResult,
+  }))
+);
 const ErrorPage = lazy(() =>
   import("@/pages/error/ErrorPage").then((module) => ({
     default: module.ErrorPage,
@@ -24,11 +37,7 @@ const GoogleCallback = lazy(() =>
     default: module.GoogleCallback,
   }))
 );
-const DashboardPage = lazy(() =>
-  import("@/pages/dashboard/Dashboard").then((module) => ({
-    default: module.Dashboard,
-  }))
-);
+
 const ContactPage = lazy(() =>
   import("@/pages/contact/Contact").then((module) => ({
     default: module.Contact,
@@ -70,21 +79,39 @@ export const routeConfig: RouteObject[] = [
               return { message: "Welcome to the Home Page!" };
             },
           },
+
           {
-            path: publicRoutes.DASHBOARD,
+            path: publicRoutes.SHOP_DETAILS,
             element: (
-              <ProtectedRoute
-                permissions={PERMISSIONS.DASHBOARD_VIEW}
-                fallback={
-                  <div>You don't have permission to view dashboard</div>
-                }
-              >
-                <DashboardPage />
+              <ProtectedRoute>
+                <ShopPage />
               </ProtectedRoute>
             ),
             loader: async () => {
-              // Fetch dashboard data
-              return { dashboardData: "Dashboard content" };
+              return { message: "Welcome to the Shop Page!" };
+            },
+          },
+
+          {
+            path: publicRoutes.CHECKOUT,
+            element: (
+              <ProtectedRoute>
+                <CheckoutPage />
+              </ProtectedRoute>
+            ),
+            loader: async () => {
+              return { message: "Welcome to the Shop Page!" };
+            },
+          },
+          {
+            path: publicRoutes.TRANSACTION_RESULT,
+            element: (
+              <ProtectedRoute>
+                <TransactionResultPage />
+              </ProtectedRoute>
+            ),
+            loader: async () => {
+              return { message: "Welcome to the Transaction Result Page!" };
             },
           },
           {

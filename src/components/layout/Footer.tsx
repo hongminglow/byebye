@@ -104,7 +104,7 @@ const FooterLinks = () => (
 );
 
 export const Footer = () => (
-  <footer className="relative">
+  <footer className="relative mt-22.5">
     <div className="bg-gray-200 relative flex flex-col px-25 pt-35 pb-22 divide-y divide-y-black/10  items-center justify-center">
       <div className="grid grid-cols-5 gap-x-28 pb-12.5">
         <CompanyInfo />

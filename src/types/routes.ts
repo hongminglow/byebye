@@ -2,6 +2,10 @@ export const publicRoutes = {
   HOME: "/",
   LOGIN: "/login",
   DASHBOARD: "/dashboard",
+  SHOP: "/shop",
+  SHOP_DETAILS: "/shop/:id",
+  CHECKOUT: "/checkout",
+  TRANSACTION_RESULT: "/transaction-result",
   ERROR: "/error",
   GOOGLE_CALLBACK: "/auth/google/callback",
 } as const;

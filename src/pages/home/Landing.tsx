@@ -9,35 +9,6 @@ import MediumDiamond from "@/assets/images/diamond-medium.png";
 import { Button } from "@/components/ui/button/Button";
 import Marquee from "react-fast-marquee";
 
-export const Dashboard = () => {
-  return (
-    <>
-      <Landing />
-      <section className="h-100 bg-white w-full">
-        <p>123123</p>
-      </section>
-    </>
-  );
-};
-
-const Landing = () => {
-  return (
-    <section className="grid grid-rows-[1fr_auto] h-screen bg-gray-200">
-      <HeroSection />
-
-      <div className="bg-black  py-11 px-25 flex items-center justify-center gap-x-26.5">
-        <Marquee speed={50} gradient={false} pauseOnHover={true}>
-          <img src={VersaceLogo} alt="versace-logo" className="mx-13.25" />
-          <img src={ZaraLogo} alt="zara-logo" className="mx-13.25" />
-          <img src={GucciLogo} alt="gucci-logo" className="mx-13.25" />
-          <img src={PradaLogo} alt="prada-logo" className="mx-13.25" />
-          <img src={CalvinLogo} alt="calvin-logo" className="mx-13.25" />
-        </Marquee>
-      </div>
-    </section>
-  );
-};
-
 const HeroSection = () => {
   return (
     <div className="relative">
@@ -87,5 +58,23 @@ const HeroSection = () => {
         <img src={MediumDiamond} alt="diamond-medium" />
       </div>
     </div>
+  );
+};
+
+export const Landing = () => {
+  return (
+    <section className="grid grid-rows-[1fr_auto] bg-gray-200">
+      <HeroSection />
+
+      <div className="bg-black  py-11 px-25 flex items-center justify-center gap-x-26.5">
+        <Marquee speed={50} gradient={false} pauseOnHover={true}>
+          <img src={VersaceLogo} alt="versace-logo" className="mx-13.25" />
+          <img src={ZaraLogo} alt="zara-logo" className="mx-13.25" />
+          <img src={GucciLogo} alt="gucci-logo" className="mx-13.25" />
+          <img src={PradaLogo} alt="prada-logo" className="mx-13.25" />
+          <img src={CalvinLogo} alt="calvin-logo" className="mx-13.25" />
+        </Marquee>
+      </div>
+    </section>
   );
 };

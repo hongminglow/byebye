@@ -54,7 +54,7 @@ export const useLogin = () => {
       queryClient.setQueryData(authKeys.user(), data.user);
 
       // Navigate to dashboard
-      navigate(publicRoutes.DASHBOARD);
+      navigate(publicRoutes.HOME);
 
       toast.success("Login successful!");
     },
@@ -81,7 +81,7 @@ export const useGoogleLogin = () => {
       });
 
       queryClient.setQueryData(authKeys.user(), data.user);
-      navigate(publicRoutes.DASHBOARD);
+      navigate(publicRoutes.HOME);
       toast.success("Google login successful!");
     },
     onError: (error: TApiError) => {

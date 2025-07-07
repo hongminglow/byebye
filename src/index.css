@@ -58,7 +58,7 @@
   --color-error-200: #fecaca;
   --color-error-300: #fca5a5;
   --color-error-400: #f87171;
-  --color-error-500: #ef4444;
+  --color-error-500: #ff3333;
   --color-error-600: #dc2626;
   --color-error-700: #b91c1c;
   --color-error-800: #991b1b;
@@ -66,7 +66,7 @@
   --color-error-950: #450a0a;
 
   --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
+  --color-gray-100: #f0f0f0;
   --color-gray-200: #f0eeed;
   --color-gray-300: #d1d5db;
   --color-gray-400: #9ca3af;
@@ -244,6 +244,33 @@
 
   .card {
     @apply bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden;
+  }
+
+  .embla {
+    overflow: hidden;
+    position: relative;
+  }
+  .embla__container {
+    display: flex;
+  }
+  .embla__slide {
+    flex: 0 0 27%;
+    min-width: 0;
+    margin-right: 20px;
+  }
+
+  /* Default state - hidden slides */
+  .embla__slide.is-hidden {
+    filter: blur(4px);
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+
+  /* Center slide - fully visible */
+  .embla__slide.is-center {
+    filter: blur(0px);
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
