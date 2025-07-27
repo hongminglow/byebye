@@ -17,6 +17,11 @@ const HomePage = lazy(() =>
 const ShopPage = lazy(() =>
   import("@/pages/shop/Shop").then((module) => ({ default: module.Shop }))
 );
+const CategoryPage = lazy(() =>
+  import("@/pages/category/Category").then((module) => ({
+    default: module.Category,
+  }))
+);
 const CheckoutPage = lazy(() =>
   import("@/pages/payment/Checkout").then((module) => ({
     default: module.Checkout,
@@ -89,6 +94,18 @@ export const routeConfig: RouteObject[] = [
             ),
             loader: async () => {
               return { message: "Welcome to the Shop Page!" };
+            },
+          },
+
+          {
+            path: publicRoutes.CATEGORY,
+            element: (
+              <ProtectedRoute>
+                <CategoryPage />
+              </ProtectedRoute>
+            ),
+            loader: async () => {
+              return { message: "Welcome to the Category Page!" };
             },
           },
 

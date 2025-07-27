@@ -4,6 +4,7 @@ export const publicRoutes = {
   DASHBOARD: "/dashboard",
   SHOP: "/shop",
   SHOP_DETAILS: "/shop/:id",
+  CATEGORY: "/category/:type",
   CHECKOUT: "/checkout",
   TRANSACTION_RESULT: "/transaction-result",
   ERROR: "/error",

@@ -3,6 +3,8 @@ import FormalProducts from "@/assets/images/formal.png";
 
 import GymProducts from "@/assets/images/gym.png";
 import PartyProducts from "@/assets/images/party.png";
+import { TProductCategoryType } from "@/types/category";
+import { useNavigate } from "react-router";
 
 const FilterItem = ({ image, title }: { image: string; title: string }) => {
   return (
@@ -20,6 +22,12 @@ const FilterItem = ({ image, title }: { image: string; title: string }) => {
 };
 
 export const ProductFilter = () => {
+  const navigate = useNavigate();
+  const handleNavigateCategory = (category: TProductCategoryType) => {
+    if (!category) return;
+    navigate(`/category/${category}`);
+  };
+
   return (
     <div className="bg-gray-100 rounded-4xl px-16 py-18 flex flex-col items-center justify-center mx-25">
       <h1 className="font-bold uppercase font-integral-cf text-5xl text-black">
@@ -27,20 +35,40 @@ export const ProductFilter = () => {
       </h1>
 
       <div className="grid grid-cols-10 mt-16 w-full grid-rows-2 gap-5 *:bg-white *:rounded-2xl">
-        <div className="col-span-4">
+        <button
+          className="col-span-4"
+          onClick={() => {
+            handleNavigateCategory("casual");
+          }}
+        >
           <FilterItem image={CasualProducts} title="Casual" />
-        </div>
-        <div className="col-span-6">
+        </button>
+        <button
+          className="col-span-6"
+          onClick={() => {
+            handleNavigateCategory("formal");
+          }}
+        >
           <FilterItem image={FormalProducts} title="Formal" />
-        </div>
+        </button>
 
-        <div className="col-span-6">
+        <button
+          className="col-span-6"
+          onClick={() => {
+            handleNavigateCategory("party");
+          }}
+        >
           <FilterItem image={PartyProducts} title="Party" />
-        </div>
+        </button>
 
-        <div className="col-span-4">
+        <button
+          className="col-span-4"
+          onClick={() => {
+            handleNavigateCategory("gym");
+          }}
+        >
           <FilterItem image={GymProducts} title="Gym" />
-        </div>
+        </button>
       </div>
     </div>
   );
