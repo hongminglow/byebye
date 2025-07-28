@@ -18,13 +18,13 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   requireAuth = true,
   permissions,
-  roles,
+  //   roles,
   fallback,
   redirectTo = "/login",
 }) => {
   const location = useLocation();
 
-  const { hasPermission, hasRole, isAuthenticated, loading } = useAuthStore(
+  const { hasPermission, isAuthenticated, loading } = useAuthStore(
     useShallow((store) => ({
       isAuthenticated: store.isAuthenticated,
       hasPermission: store.hasPermission,
@@ -52,10 +52,10 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return fallback || <Navigate to="/login" replace />;
   }
 
-  // Check roles
-  if (roles && !hasRole(roles)) {
-    return fallback || <Navigate to="/login" replace />;
-  }
+  //   // Check roles
+  //   if (roles && !hasRole(roles)) {
+  //     return fallback || <Navigate to="/login" replace />;
+  //   }
 
   return <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>;
 };

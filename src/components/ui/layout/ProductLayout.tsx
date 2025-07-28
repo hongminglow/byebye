@@ -3,6 +3,7 @@ import { Rating, RatingButton } from "@/components/ui/rating";
 import { TProductItem } from "@/types/product";
 import { useNavigate } from "react-router";
 import { publicRoutes } from "@/types/routes";
+import { cn } from "@/lib/utils";
 
 const ProductItem = ({ data }: { data: TProductItem }) => {
   const navigate = useNavigate();
@@ -57,9 +58,15 @@ const ProductItem = ({ data }: { data: TProductItem }) => {
   );
 };
 
-export const ProductLayout = ({ list }: { list: Array<TProductItem> }) => {
+export const ProductLayout = ({
+  list,
+  className,
+}: {
+  list: Array<TProductItem>;
+  className?: string;
+}) => {
   return (
-    <div className="grid grid-cols-4 gap-x-5 mt-13.5">
+    <div className={cn("grid grid-cols-4 gap-x-5 mt-13.5", className)}>
       {list.map((product) => (
         <ProductItem key={product.id} data={product} />
       ))}

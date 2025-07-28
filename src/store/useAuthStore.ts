@@ -59,12 +59,11 @@ export const useAuthStore = create<AuthState>()(
 
       // Computed values
       isAuthenticated: () => {
-        const { user } = get();
+        // const { user } = get();
         const token = cookieStorage.get("token");
 
         // Must have both user and valid token
-        const isAuth =
-          !!user && !!token && token !== "undefined" && token !== "null";
+        const isAuth = !!token && token !== "undefined" && token !== "null";
 
         return isAuth;
       },

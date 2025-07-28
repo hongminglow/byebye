@@ -30,6 +30,20 @@ export interface LoginResponse {
   refreshToken?: string;
 }
 
+export type TAuthRequest = {
+  username: string;
+  password: string;
+};
+
+export type TAuthResponse = {
+  token: string;
+};
+
+export type TJwtPayload = {
+  userid: number;
+  username: string;
+  email: string;
+};
 export interface GoogleLoginRequest {
   token: string;
 }

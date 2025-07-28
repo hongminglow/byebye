@@ -36,26 +36,33 @@ export const useUser = () => {
 // Login mutation
 export const useLogin = () => {
   const navigate = useNavigate();
-  const login = useAuthStore((store) => store.login);
-  const queryClient = useQueryClient();
+  //   const login = useAuthStore((store) => store.login);
+  //   const queryClient = useQueryClient();
 
   return useMutation({
+    mutationKey: ["login"],
     mutationFn: loginMutation,
     onSuccess: (data) => {
-      // Store token
+      //   // Store token
+      //   cookieStorage.set("token", data.token, {
+      //     expires: 1,
+      //     secure: import.meta.env.PROD,
+      //     sameSite: "Lax",
+      //   });
+
+      //   // Update user query cache
+      //   login(data.user);
+      //   queryClient.setQueryData(authKeys.user(), data.user);
+      console.log("Login successful:", data.token);
+
       cookieStorage.set("token", data.token, {
         expires: 1,
         secure: import.meta.env.PROD,
         sameSite: "Lax",
       });
 
-      // Update user query cache
-      login(data.user);
-      queryClient.setQueryData(authKeys.user(), data.user);
-
       // Navigate to dashboard
       navigate(publicRoutes.HOME);
-
       toast.success("Login successful!");
     },
     onError: (error: TApiError) => {
