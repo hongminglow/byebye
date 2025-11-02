@@ -36,7 +36,7 @@ export const useLoginForm = () => {
     // const result = await loginWithCredentials(data.email, data.password);
     // if (result) navigate(publicRoutes.DASHBOARD);
     loginMutation.mutate({
-      username: data.email,
+      email: data.email,
       password: data.password,
     });
   };

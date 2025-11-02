@@ -14,12 +14,11 @@ import { useState } from "react";
 
 export const Login = () => {
   return (
-    <div className="relative">
-      <div className="h-80 bg-black w-full" />
-      <div className="-translate-y-20 border-gray-300 shadow border flex flex-col p-4 mx-auto justify-center items-center w-1/3 bg-gray-100 rounded-xl">
+    <div className="relative h-screen flex items-center">
+      <div className="absolute top-0 h-80 bg-black w-full -z-10" />
+      <div className=" border-gray-300 shadow-md border flex flex-col p-4 mx-auto justify-center items-center w-1/3 bg-gray-100 rounded-xl">
         <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
         <p className="text-gray-600 mt-2">Sign in to your account</p>
-
         <LoginForm />
       </div>
     </div>
@@ -57,8 +56,8 @@ const LoginForm = () => {
   };
 
   return (
-    <form id="login-form">
-      <div className="flex flex-col gap-2 px-2 w-full mt-6 items-center justify-center">
+    <form id="login-form" className="w-full">
+      <div className="flex flex-col gap-2 px-2 w-full mt-6">
         <Controller
           name="email"
           control={form.control}
@@ -89,15 +88,15 @@ const LoginForm = () => {
 
         <Button
           type="button"
-          variant="ghost"
-          className="text-blue-500 px-5 "
+          variant="outline"
+          className="text-blue-500 px-5 w-full mt-4"
           onClick={handleLoginClick}
         >
           <LogIn />
           Sign In
         </Button>
 
-        <div className="my-1">
+        <div className="w-full">
           <GoogleLogin
             onSuccess={handleGoogleSuccessCallback}
             useOneTap={false}

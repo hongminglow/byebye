@@ -1,6 +1,7 @@
-import { ReactNode, useContext, useReducer, createContext } from "react";
+import { ReactNode, useContext, createContext } from "react";
 import { initialState, productReducer } from "@/reducer/ProductReducer";
 import { TProductAction, TProductInitialState } from "@/types/reducer";
+import { useImmerReducer } from "use-immer";
 
 type TProductContext = {
   state: TProductInitialState;
@@ -18,7 +19,7 @@ export const useProductContext = () => {
 export const ProductProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [state, dispatch] = useReducer(productReducer, initialState);
+  const [state, dispatch] = useImmerReducer(productReducer, initialState);
 
   return (
     <ProductContext.Provider value={{ state, dispatch }}>

@@ -9,26 +9,32 @@ export const initialState: TProductInitialState = {
 };
 
 export const productReducer = (
-  initialState: TProductInitialState,
+  draft: TProductInitialState,
   action: TProductAction
-): TProductInitialState => {
+): void => {
   switch (action.type) {
     case "SELECT_IMAGE":
-      return { ...initialState, img: action.payload };
+      draft.img = action.payload;
+      break;
     case "SELECT_COLOR":
-      return { ...initialState, color: action.payload as TColorType };
+      draft.color = action.payload as TColorType;
+      break;
     case "SELECT_SIZE":
-      return { ...initialState, size: action.payload as TSizeType };
+      draft.size = action.payload as TSizeType;
+      break;
     case "INCREMENT":
-      return { ...initialState, quantity: initialState.quantity + 1 };
+      draft.quantity += 1;
+      break;
     case "DECREMENT":
-      return {
-        ...initialState,
-        quantity: initialState.quantity > 0 ? initialState.quantity - 1 : 0,
-      };
+      draft.quantity = draft.quantity > 0 ? draft.quantity - 1 : 0;
+      break;
     case "RESET":
-      return initialState;
+      draft.img = initialState.img;
+      draft.color = initialState.color;
+      draft.size = initialState.size;
+      draft.quantity = initialState.quantity;
+      break;
     default:
-      return initialState;
+      break;
   }
 };
