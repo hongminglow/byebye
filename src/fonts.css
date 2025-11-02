@@ -1,0 +1,41 @@
+@font-face {
+  font-family: "integral-cf";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/integral-cf-regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "integral-cf";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/integral-cf-bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "integral-cf";
+  font-style: normal;
+  font-weight: 800;
+  src: url("/fonts/integral-cf-extrabold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "satoshi";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/fonts/satoshi-light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "satoshi";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/satoshi-regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "satoshi";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/satoshi-bold.otf") format("opentype");
+}

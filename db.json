@@ -1,0 +1,59 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@example.com",
+      "password": "password123",
+      "name": "Admin User",
+      "roles": [
+        {
+          "id": "1",
+          "name": "admin",
+          "permissions": [
+            {
+              "id": "1",
+              "name": "dashboard:view",
+              "resource": "dashboard",
+              "action": "view"
+            },
+            {
+              "id": "2",
+              "name": "reports:view",
+              "resource": "reports",
+              "action": "view"
+            }
+          ]
+        }
+      ],
+      "permissions": [],
+      "provider": "credentials"
+    },
+    {
+      "id": "2",
+      "email": "user@example.com",
+      "password": "user123",
+      "name": "Regular User",
+      "roles": [
+        {
+          "id": "2",
+          "name": "user",
+          "permissions": [
+            {
+              "id": "1",
+              "name": "dashboard:view",
+              "resource": "dashboard",
+              "action": "view"
+            }
+          ]
+        }
+      ],
+      "permissions": [],
+      "provider": "credentials"
+    }
+  ],
+  "sessions": [],
+  "auth": {
+    "login": [],
+    "google": []
+  }
+}
