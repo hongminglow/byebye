@@ -3,15 +3,13 @@ import { NewArrivals } from "./NewArrivals";
 import { ProductFilter } from "./ProductFilter";
 import { TopSelling } from "./TopSelling";
 import { ProductFeedback } from "./ProductFeedback";
-import { useQuery } from "@tanstack/react-query";
-import { getUserListQueryOption } from "@/services/query/utils";
 import { useInitWebSocket } from "@/hooks/useInitWebSocket";
-import { useState } from "react";
 
 export const Home = () => {
   useInitWebSocket();
-  const [image, setImage] = useState<string | null>(null);
-  const { data } = useQuery(getUserListQueryOption());
+  //   const [image, setImage] = useState<string | null>(null);
+  //   const { data } = useQuery(getUserListQueryOption());
+
   //   console.log("data.." + JSON.stringify(data, null, 2));
 
   //   useEffect(() => {

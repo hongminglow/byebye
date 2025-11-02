@@ -40,6 +40,7 @@ const useRating = () => {
 export type RatingButtonProps = LucideProps & {
   index?: number;
   icon?: ReactElement<LucideProps>;
+  size?: number;
 };
 
 export const RatingButton = ({
@@ -65,7 +66,7 @@ export const RatingButton = ({
   const isFullStar = index < Math.floor(currentValue);
   const isHalfStar =
     index === Math.floor(currentValue) && currentValue % 1 !== 0;
-  const isEmpty = index >= Math.ceil(currentValue);
+  //   const isEmpty = index >= Math.ceil(currentValue);
 
   let tabIndex = -1;
   if (!readOnly) {
@@ -145,7 +146,7 @@ export type RatingProps = {
 export const Rating = ({
   value: controlledValue,
   onValueChange: controlledOnValueChange,
-  defaultValue,
+  defaultValue = 1,
   onChange,
   allowHalf = false,
   readOnly = false,
