@@ -7,12 +7,11 @@ import { publicRoutes } from "@/types/routes";
 import { useEffect, useState } from "react";
 import { useQueryState } from "nuqs";
 import { useDebounce } from "@uidotdev/usehooks";
-import MainLogo from "@/assets/images/main-logo.png";
 
 const Logo = () => (
   <Link to={publicRoutes.HOME} className="flex items-center space-x-2">
     <img
-      src={MainLogo}
+      src="/assets/images/logo.png"
       alt="main-logo"
       className="w-25 h-12 object-contain"
       width={100}
