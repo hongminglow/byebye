@@ -1,7 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
-import { Suspense, useEffect } from "react";
-import { theme } from "./utils/theme";
+import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/ui/loading/LoadingSpinner";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryProvider } from "./providers/QueryProvider";
@@ -12,10 +11,10 @@ import { NuqsAdapter } from "nuqs/adapters/react";
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 function App() {
-  useEffect(() => {
-    // Initialize theme on app start
-    theme.init();
-  }, []);
+  //   useEffect(() => {
+  //     // Initialize theme on app start
+  //     theme.init();
+  //   }, []);
 
   return (
     <QueryProvider>
