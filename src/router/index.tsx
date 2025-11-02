@@ -55,116 +55,102 @@ const ReportPage = lazy(() =>
 export const routeConfig: RouteObject[] = [
   {
     path: "/",
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
-        path: publicRoutes.LOGIN,
-        element: <LoginPage />,
+        index: true,
+        element: <HomePage />,
+        loader: async () => {
+          return { message: "Welcome to the Home Page!" };
+        },
       },
       {
-        path: publicRoutes.ERROR,
-        element: <ErrorPage />,
+        path: publicRoutes.SHOP_DETAILS,
+        element: <ShopPage />,
+        loader: async () => {
+          return { message: "Welcome to the Shop Page!" };
+        },
       },
       {
-        path: publicRoutes.GOOGLE_CALLBACK,
-        element: <GoogleCallback />,
+        path: publicRoutes.CATEGORY,
+        element: <CategoryPage />,
+        loader: async () => {
+          return { message: "Welcome to the Category Page!" };
+        },
       },
       {
-        path: "/",
-        element: <Layout />,
-        children: [
-          {
-            index: true,
-            element: (
-              <ProtectedRoute>
-                <HomePage />
-              </ProtectedRoute>
-            ),
-            loader: async () => {
-              return { message: "Welcome to the Home Page!" };
-            },
-          },
-
-          {
-            path: publicRoutes.SHOP_DETAILS,
-            element: (
-              <ProtectedRoute>
-                <ShopPage />
-              </ProtectedRoute>
-            ),
-            loader: async () => {
-              return { message: "Welcome to the Shop Page!" };
-            },
-          },
-
-          {
-            path: publicRoutes.CATEGORY,
-            element: (
-              <ProtectedRoute>
-                <CategoryPage />
-              </ProtectedRoute>
-            ),
-            loader: async () => {
-              return { message: "Welcome to the Category Page!" };
-            },
-          },
-
-          {
-            path: publicRoutes.CHECKOUT,
-            element: (
-              <ProtectedRoute>
-                <CheckoutPage />
-              </ProtectedRoute>
-            ),
-            loader: async () => {
-              return { message: "Welcome to the Shop Page!" };
-            },
-          },
-          {
-            path: publicRoutes.TRANSACTION_RESULT,
-            element: (
-              <ProtectedRoute>
-                <TransactionResultPage />
-              </ProtectedRoute>
-            ),
-            loader: async () => {
-              return { message: "Welcome to the Transaction Result Page!" };
-            },
-          },
-          {
-            path: userRoutes.CONTACT,
-            element: (
-              <ProtectedRoute>
-                <ContactPage />
-              </ProtectedRoute>
-            ),
-            action: async ({ request }) => {
-              const formData = await request.formData();
-              return fetch("/api/contact", {
-                method: "POST",
-                body: formData,
-              });
-            },
-          },
-          {
-            path: adminRoutes.REPORT,
-            element: (
-              <ProtectedRoute
-                roles={TRoleType.ADMIN}
-                permissions={PERMISSIONS.REPORTS_VIEW}
-              >
-                <ReportPage />
-              </ProtectedRoute>
-            ),
-            loader: async () => {
-              return fetch("/api/reports");
-            },
-          },
-        ],
+        path: publicRoutes.CHECKOUT,
+        element: <CheckoutPage />,
+        loader: async () => {
+          return { message: "Welcome to the Shop Page!" };
+        },
       },
-      { path: "*", element: <ErrorPage /> },
+      {
+        path: publicRoutes.TRANSACTION_RESULT,
+        element: <TransactionResultPage />,
+        loader: async () => {
+          return { message: "Welcome to the Transaction Result Page!" };
+        },
+      },
+      {
+        path: userRoutes.CONTACT,
+        element: <ContactPage />,
+        action: async ({ request }) => {
+          const formData = await request.formData();
+          return fetch("/api/contact", {
+            method: "POST",
+            body: formData,
+          });
+        },
+      },
+      {
+        path: adminRoutes.REPORT,
+        element: (
+          <ProtectedRoute
+            permissions={PERMISSIONS.REPORTS_VIEW}
+            roles={TRoleType.ADMIN}
+          >
+            <ReportPage />
+          </ProtectedRoute>
+        ),
+        loader: async () => {
+          return fetch("/api/reports");
+        },
+      },
     ],
   },
+  {
+    path: publicRoutes.LOGIN,
+    element: (
+      <ProtectedRoute
+        requireAuth={false}
+        redirectWhenAuthenticated={publicRoutes.HOME}
+      >
+        <LoginPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: publicRoutes.ERROR,
+    element: <ErrorPage />,
+  },
+  {
+    path: publicRoutes.GOOGLE_CALLBACK,
+    element: (
+      <ProtectedRoute
+        requireAuth={false}
+        redirectWhenAuthenticated={publicRoutes.HOME}
+      >
+        <GoogleCallback />
+      </ProtectedRoute>
+    ),
+  },
+  { path: "*", element: <ErrorPage /> },
 ];
 
 export const router = createBrowserRouter(routeConfig);

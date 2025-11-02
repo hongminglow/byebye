@@ -12,6 +12,7 @@ interface ProtectedRouteProps {
   roles?: string | string[];
   fallback?: React.ReactNode;
   redirectTo?: string;
+  redirectWhenAuthenticated?: string;
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
@@ -21,6 +22,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   //   roles,
   fallback,
   redirectTo = "/login",
+  redirectWhenAuthenticated,
 }) => {
   const location = useLocation();
 
@@ -28,7 +30,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     useShallow((store) => ({
       isAuthenticated: store.isAuthenticated,
       hasPermission: store.hasPermission,
-      hasRole: store.hasRole,
       loading: store.loading,
     }))
   );
@@ -43,8 +44,14 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   }
 
   // Check authentication
-  if (requireAuth && !isAuthenticated()) {
+  const authenticated = isAuthenticated();
+
+  if (requireAuth && !authenticated) {
     return <Navigate to={redirectTo} state={{ from: location }} replace />;
+  }
+
+  if (!requireAuth && redirectWhenAuthenticated && authenticated) {
+    return <Navigate to={redirectWhenAuthenticated} replace />;
   }
 
   // Check permissions
