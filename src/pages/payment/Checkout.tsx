@@ -77,19 +77,47 @@ const CheckoutForm = () => {
 
 export const Checkout = () => {
   const [clientSecret, setClientSecret] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/create-payment-intent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        amount: 1000, // $10.00 in cents
-        currency: "myr",
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+    // 🎯 NO SERVER: Direct Stripe API call from browser (TEST MODE ONLY!)
+    const createPaymentIntent = async () => {
+      try {
+        const response = await fetch(
+          "https://api.stripe.com/v1/payment_intents",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${import.meta.env.VITE_STRIPE_SECRET_KEY}`,
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              amount: "1000",
+              currency: "myr",
+              "automatic_payment_methods[enabled]": "true",
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Stripe API Error:", errorData);
+          throw new Error(
+            errorData.error?.message || "Failed to create payment intent"
+          );
+        }
+
+        const paymentIntent = await response.json();
+        setClientSecret(paymentIntent.client_secret);
+      } catch (err) {
+        console.error("Payment intent creation failed:", err);
+        setError(
+          err instanceof Error ? err.message : "Failed to initialize payment"
+        );
+      }
+    };
+
+    createPaymentIntent();
   }, []);
 
   const options = {
@@ -101,6 +129,19 @@ export const Checkout = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
+      {error && (
+        <div className="max-w-md mx-auto mb-4 p-4 bg-red-100 text-red-700 rounded">
+          {error}
+        </div>
+      )}
+
+      {!clientSecret && !error && (
+        <div className="max-w-md mx-auto p-6 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading payment form...</p>
+        </div>
+      )}
+
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
